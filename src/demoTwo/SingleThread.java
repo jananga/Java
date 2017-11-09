@@ -22,6 +22,7 @@ public class SingleThread {
 				{
 					incVar();
 					System.out.println("First loop Count : "+count);
+					System.out.println("priority : "+Thread.currentThread().getPriority()+" Name : "+Thread.currentThread().getName());
 				}
 				
 			}
@@ -35,23 +36,25 @@ public class SingleThread {
 				{
 					incVar();
 					System.out.println("Second loop Count : "+count);
-
+					System.out.println("priority : "+Thread.currentThread().getPriority()+" Name : "+Thread.currentThread().getName());
+		
 				}
 				
 			}
 		});
 		
-		t1.start();
-		t2.start();
 		
-		try {
-			t1.join();
-			t2.join();
-			//asfea
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		t1.setPriority(Thread.MAX_PRIORITY);
+		t1.setName("MyNamedThread");
+		t1.start();
+		
+		//t1.join();
+		t1.yield();
+		t2.start();
+		//t2.join();
+		t2.yield();
+		//asfea
 		
 		System.out.println("Count : "+count);
 	}
